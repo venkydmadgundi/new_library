@@ -10,10 +10,6 @@
 lib_solapur = Library.create(name: "New Library", description: "All india permit for Solapur", city: "Solapur", country: "India")
 lib_pune = Library.create(name: "Shamala Library", description: "All india permit for Pune", city: "Oybe", country: "India")
 lib_mumbai = Library.create(name: "Shwetlana Library", description: "All india permit for Mumbai", city: "Mumbai", country: "India")
-# lib_banglore = Library.create(name: "Ranjana Library", description: "All india permit for Banglore", city: "Banglore", country: "India")
-# lib_chennai = Library.create(name: "Sanjana Library", description: "All india permit for Chennai", city: "Chennai", country: "India")
-# lib_kolkata = Library.create(name: "Digamber Library", description: "All india permit for Kolkata", city: "Kolkata", country: "India")
-# lib_delhi = Library.create(name: "Kamala Library", description: "All india permit for Delhi", city: "Delhi", country: "India")
 
 user_shwetlana = User.create(firstname: "Shwetlana" , lastname: "Madgundi", email: "shweta.madgundi@gmail.com",country: "India",phone_number: "9527400566")
 user_sanjana = User.create(firstname: "Sanjana" , lastname: "Madgundi", email: "sanjana.madgundi@gmail.com",country: "India",phone_number: "9527400566")
