@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  author_name: MyString
+  long_description: MyText
+  cost: 1.5
+  release_on: 2023-07-20 11:06:41
+  genre: 1
+  library: one
+  available: false
+  check_in: 2023-07-20 11:06:41
+  check_out: 2023-07-20 11:06:41
+  language: MyString
+
+two:
+  name: MyString
+  author_name: MyString
+  long_description: MyText
+  cost: 1.5
+  release_on: 2023-07-20 11:06:41
+  genre: 1
+  library: two
+  available: false
+  check_in: 2023-07-20 11:06:41
+  check_out: 2023-07-20 11:06:41
+  language: MyString

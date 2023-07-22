@@ -1,0 +1,1371 @@
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLibraries (20230720053636)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "libraries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" varchar, "address" varchar, "city" varchar, "country" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053636"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBooks (20230720053641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "author_name" varchar, "long_description" text, "cost" float, "release_on" datetime(6), "genre" integer, "library_id" integer NOT NULL, "available" boolean, "check_in" datetime(6), "check_out" datetime(6), "language" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_9bb3dacd9b"
+FOREIGN KEY ("library_id")
+  REFERENCES "libraries" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_books_on_library_id" ON "books" ("library_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053641"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUsers (20230720053646)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "firstname" varchar, "lastname" varchar, "email" varchar, "country" varchar, "phone_number" varchar, "book_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_979165e3ba"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_users_on_book_id" ON "users" ("book_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053646"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-07-20 05:37:36.347023"], ["updated_at", "2023-07-20 05:37:36.347023"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (1.5ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Laxmi Library"], ["description", "All india permit"], ["address", nil], ["city", "Solapur"], ["country", "India"], ["created_at", "2023-07-20 05:40:13.295389"], ["updated_at", "2023-07-20 05:40:13.295389"]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Create (1.3ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", nil], ["author_name", nil], ["long_description", nil], ["cost", nil], ["release_on", nil], ["genre", nil], ["library_id", 1], ["available", nil], ["check_in", nil], ["check_out", nil], ["language", nil], ["created_at", "2023-07-20 05:40:32.312990"], ["updated_at", "2023-07-20 05:40:32.312990"]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  [1m[36mBook Load (0.5ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBook Update (0.4ms)[0m  [1m[33mUPDATE "books" SET "genre" = ?, "updated_at" = ? WHERE "books"."id" = ?[0m  [["genre", 1], ["updated_at", "2023-07-20 05:43:18.128517"], ["id", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLibraries (20230720053636)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "libraries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" varchar, "address" varchar, "city" varchar, "country" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053636"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBooks (20230720053641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "author_name" varchar, "long_description" text, "cost" float, "release_on" datetime(6), "genre" integer DEFAULT 0, "library_id" integer NOT NULL, "available" boolean, "check_in" datetime(6), "check_out" datetime(6), "language" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_9bb3dacd9b"
+FOREIGN KEY ("library_id")
+  REFERENCES "libraries" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_books_on_library_id" ON "books" ("library_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (5.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053641"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUsers (20230720053646)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "firstname" varchar, "lastname" varchar, "email" varchar, "country" varchar, "phone_number" varchar, "book_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_979165e3ba"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_users_on_book_id" ON "users" ("book_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053646"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-07-20 05:46:33.160985"], ["updated_at", "2023-07-20 05:46:33.160985"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateBookUsers (20230720082136)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "book_users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "user_id" integer NOT NULL, "check_in" datetime(6), "check_out" datetime(6), "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ebd86ae5af"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_80c3db1bcd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_book_id" ON "book_users" ("book_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_user_id" ON "book_users" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720082136"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.4ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "New Library"], ["description", "All india permit for Solapur"], ["address", nil], ["city", "Solapur"], ["country", "India"], ["created_at", "2023-07-20 10:57:18.172963"], ["updated_at", "2023-07-20 10:57:18.172963"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shamala Library"], ["description", "All india permit for Pune"], ["address", nil], ["city", "Oybe"], ["country", "India"], ["created_at", "2023-07-20 10:57:18.174985"], ["updated_at", "2023-07-20 10:57:18.174985"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.3ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shwetlana Library"], ["description", "All india permit for Mumbai"], ["address", nil], ["city", "Mumbai"], ["country", "India"], ["created_at", "2023-07-20 10:57:18.181513"], ["updated_at", "2023-07-20 10:57:18.181513"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ranjana Library"], ["description", "All india permit for Banglore"], ["address", nil], ["city", "Banglore"], ["country", "India"], ["created_at", "2023-07-20 10:57:18.183095"], ["updated_at", "2023-07-20 10:57:18.183095"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Sanjana Library"], ["description", "All india permit for Chennai"], ["address", nil], ["city", "Chennai"], ["country", "India"], ["created_at", "2023-07-20 10:57:18.184614"], ["updated_at", "2023-07-20 10:57:18.184614"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Digamber Library"], ["description", "All india permit for Kolkata"], ["address", nil], ["city", "Kolkata"], ["country", "India"], ["created_at", "2023-07-20 10:57:18.185775"], ["updated_at", "2023-07-20 10:57:18.185775"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kamala Library"], ["description", "All india permit for Delhi"], ["address", nil], ["city", "Delhi"], ["country", "India"], ["created_at", "2023-07-20 10:57:18.187228"], ["updated_at", "2023-07-20 10:57:18.187228"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBookUser Create (0.3ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", nil], ["user_id", nil], ["check_in", "2023-07-10 10:57:18.196475"], ["check_out", "2023-07-15 10:57:18.196820"], ["notes", nil], ["created_at", "2023-07-20 10:57:18.204700"], ["updated_at", "2023-07-20 10:57:18.204700"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLibraries (20230720053636)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "libraries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" varchar, "address" varchar, "city" varchar, "country" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053636"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBooks (20230720053641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "author_name" varchar, "long_description" text, "cost" float, "release_on" datetime(6), "genre" integer DEFAULT 0, "library_id" integer NOT NULL, "available" boolean, "check_in" datetime(6), "check_out" datetime(6), "language" varchar, "checkout_users" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_9bb3dacd9b"
+FOREIGN KEY ("library_id")
+  REFERENCES "libraries" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_books_on_library_id" ON "books" ("library_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053641"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUsers (20230720053646)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "firstname" varchar, "lastname" varchar, "email" varchar, "country" varchar, "phone_number" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053646"]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBookUsers (20230720082136)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "book_users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "user_id" integer NOT NULL, "check_in" datetime(6), "check_out" datetime(6), "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ebd86ae5af"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_80c3db1bcd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_book_id" ON "book_users" ("book_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_user_id" ON "book_users" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720082136"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-07-20 10:59:43.168792"], ["updated_at", "2023-07-20 10:59:43.168792"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.5ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "New Library"], ["description", "All india permit for Solapur"], ["address", nil], ["city", "Solapur"], ["country", "India"], ["created_at", "2023-07-20 11:00:01.943803"], ["updated_at", "2023-07-20 11:00:01.943803"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shamala Library"], ["description", "All india permit for Pune"], ["address", nil], ["city", "Oybe"], ["country", "India"], ["created_at", "2023-07-20 11:00:01.945748"], ["updated_at", "2023-07-20 11:00:01.945748"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shwetlana Library"], ["description", "All india permit for Mumbai"], ["address", nil], ["city", "Mumbai"], ["country", "India"], ["created_at", "2023-07-20 11:00:01.947099"], ["updated_at", "2023-07-20 11:00:01.947099"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.3ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ranjana Library"], ["description", "All india permit for Banglore"], ["address", nil], ["city", "Banglore"], ["country", "India"], ["created_at", "2023-07-20 11:00:01.953138"], ["updated_at", "2023-07-20 11:00:01.953138"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Sanjana Library"], ["description", "All india permit for Chennai"], ["address", nil], ["city", "Chennai"], ["country", "India"], ["created_at", "2023-07-20 11:00:01.954777"], ["updated_at", "2023-07-20 11:00:01.954777"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.1ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Digamber Library"], ["description", "All india permit for Kolkata"], ["address", nil], ["city", "Kolkata"], ["country", "India"], ["created_at", "2023-07-20 11:00:01.956360"], ["updated_at", "2023-07-20 11:00:01.956360"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kamala Library"], ["description", "All india permit for Delhi"], ["address", nil], ["city", "Delhi"], ["country", "India"], ["created_at", "2023-07-20 11:00:01.957547"], ["updated_at", "2023-07-20 11:00:01.957547"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", nil], ["user_id", nil], ["check_in", "2023-06-30 11:00:01.966765"], ["check_out", "2023-07-04 11:00:01.967064"], ["notes", nil], ["created_at", "2023-07-20 11:00:01.974987"], ["updated_at", "2023-07-20 11:00:01.974987"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLibraries (20230720053636)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "libraries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" varchar, "address" varchar, "city" varchar, "country" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053636"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBooks (20230720053641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "author_name" varchar, "long_description" text, "cost" float, "release_on" datetime(6), "genre" integer DEFAULT 0, "library_id" integer NOT NULL, "available" boolean, "check_in" datetime(6), "check_out" datetime(6), "language" varchar, "checkout_users" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_9bb3dacd9b"
+FOREIGN KEY ("library_id")
+  REFERENCES "libraries" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_books_on_library_id" ON "books" ("library_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053641"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUsers (20230720053646)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "firstname" varchar, "lastname" varchar, "email" varchar, "country" varchar, "phone_number" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053646"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBookUsers (20230720082136)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "book_users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "user_id" integer NOT NULL, "check_in" datetime(6), "check_out" datetime(6), "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ebd86ae5af"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_80c3db1bcd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_book_id" ON "book_users" ("book_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_user_id" ON "book_users" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720082136"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-07-20 11:01:08.571838"], ["updated_at", "2023-07-20 11:01:08.571838"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "New Library"], ["description", "All india permit for Solapur"], ["address", nil], ["city", "Solapur"], ["country", "India"], ["created_at", "2023-07-20 11:01:13.295149"], ["updated_at", "2023-07-20 11:01:13.295149"]]
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shamala Library"], ["description", "All india permit for Pune"], ["address", nil], ["city", "Oybe"], ["country", "India"], ["created_at", "2023-07-20 11:01:13.298207"], ["updated_at", "2023-07-20 11:01:13.298207"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shwetlana Library"], ["description", "All india permit for Mumbai"], ["address", nil], ["city", "Mumbai"], ["country", "India"], ["created_at", "2023-07-20 11:01:13.299573"], ["updated_at", "2023-07-20 11:01:13.299573"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.3ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ranjana Library"], ["description", "All india permit for Banglore"], ["address", nil], ["city", "Banglore"], ["country", "India"], ["created_at", "2023-07-20 11:01:13.306527"], ["updated_at", "2023-07-20 11:01:13.306527"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Sanjana Library"], ["description", "All india permit for Chennai"], ["address", nil], ["city", "Chennai"], ["country", "India"], ["created_at", "2023-07-20 11:01:13.308108"], ["updated_at", "2023-07-20 11:01:13.308108"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Digamber Library"], ["description", "All india permit for Kolkata"], ["address", nil], ["city", "Kolkata"], ["country", "India"], ["created_at", "2023-07-20 11:01:13.309758"], ["updated_at", "2023-07-20 11:01:13.309758"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kamala Library"], ["description", "All india permit for Delhi"], ["address", nil], ["city", "Delhi"], ["country", "India"], ["created_at", "2023-07-20 11:01:13.311025"], ["updated_at", "2023-07-20 11:01:13.311025"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" ORDER BY "libraries"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  [1m[36mLibrary Load (0.3ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" ORDER BY "libraries"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mBook Load (0.3ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 7]]
+  [1m[36mBook Load (0.7ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mBook Load (0.5ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLibraries (20230720053636)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "libraries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" varchar, "address" varchar, "city" varchar, "country" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053636"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBooks (20230720053641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "author_name" varchar, "long_description" text, "cost" float, "release_on" datetime(6), "genre" integer DEFAULT 0, "library_id" integer NOT NULL, "available" boolean, "check_in" datetime(6), "check_out" datetime(6), "language" varchar, "checkout_users" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_9bb3dacd9b"
+FOREIGN KEY ("library_id")
+  REFERENCES "libraries" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_books_on_library_id" ON "books" ("library_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053641"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUsers (20230720053646)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "firstname" varchar, "lastname" varchar, "email" varchar, "country" varchar, "phone_number" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053646"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBookUsers (20230720082136)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "book_users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "user_id" integer NOT NULL, "check_in" datetime(6), "check_out" datetime(6), "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ebd86ae5af"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_80c3db1bcd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_book_id" ON "book_users" ("book_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_user_id" ON "book_users" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720082136"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-07-20 12:23:09.405508"], ["updated_at", "2023-07-20 12:23:09.405508"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.3ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "New Library"], ["description", "All india permit for Solapur"], ["address", nil], ["city", "Solapur"], ["country", "India"], ["created_at", "2023-07-20 12:23:16.018340"], ["updated_at", "2023-07-20 12:23:16.018340"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shamala Library"], ["description", "All india permit for Pune"], ["address", nil], ["city", "Oybe"], ["country", "India"], ["created_at", "2023-07-20 12:23:16.020454"], ["updated_at", "2023-07-20 12:23:16.020454"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shwetlana Library"], ["description", "All india permit for Mumbai"], ["address", nil], ["city", "Mumbai"], ["country", "India"], ["created_at", "2023-07-20 12:23:16.021821"], ["updated_at", "2023-07-20 12:23:16.021821"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.3ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ranjana Library"], ["description", "All india permit for Banglore"], ["address", nil], ["city", "Banglore"], ["country", "India"], ["created_at", "2023-07-20 12:23:16.028330"], ["updated_at", "2023-07-20 12:23:16.028330"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Sanjana Library"], ["description", "All india permit for Chennai"], ["address", nil], ["city", "Chennai"], ["country", "India"], ["created_at", "2023-07-20 12:23:16.029871"], ["updated_at", "2023-07-20 12:23:16.029871"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Digamber Library"], ["description", "All india permit for Kolkata"], ["address", nil], ["city", "Kolkata"], ["country", "India"], ["created_at", "2023-07-20 12:23:16.031537"], ["updated_at", "2023-07-20 12:23:16.031537"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kamala Library"], ["description", "All india permit for Delhi"], ["address", nil], ["city", "Delhi"], ["country", "India"], ["created_at", "2023-07-20 12:23:16.032843"], ["updated_at", "2023-07-20 12:23:16.032843"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLibraries (20230720053636)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "libraries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" varchar, "address" varchar, "city" varchar, "country" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053636"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBooks (20230720053641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "author_name" varchar, "long_description" text, "cost" float, "release_on" datetime(6), "genre" integer DEFAULT 0, "library_id" integer NOT NULL, "available" boolean, "check_in" datetime(6), "check_out" datetime(6), "language" varchar, "checkout_users" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_9bb3dacd9b"
+FOREIGN KEY ("library_id")
+  REFERENCES "libraries" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_books_on_library_id" ON "books" ("library_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053641"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUsers (20230720053646)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "firstname" varchar, "lastname" varchar, "email" varchar, "country" varchar, "phone_number" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053646"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBookUsers (20230720082136)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "book_users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "user_id" integer NOT NULL, "check_in" datetime(6), "check_out" datetime(6), "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ebd86ae5af"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_80c3db1bcd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_book_id" ON "book_users" ("book_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_user_id" ON "book_users" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720082136"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-07-20 12:26:44.790028"], ["updated_at", "2023-07-20 12:26:44.790028"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.3ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "New Library"], ["description", "All india permit for Solapur"], ["address", nil], ["city", "Solapur"], ["country", "India"], ["created_at", "2023-07-20 12:26:44.805317"], ["updated_at", "2023-07-20 12:26:44.805317"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shamala Library"], ["description", "All india permit for Pune"], ["address", nil], ["city", "Oybe"], ["country", "India"], ["created_at", "2023-07-20 12:26:44.807335"], ["updated_at", "2023-07-20 12:26:44.807335"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shwetlana Library"], ["description", "All india permit for Mumbai"], ["address", nil], ["city", "Mumbai"], ["country", "India"], ["created_at", "2023-07-20 12:26:44.808680"], ["updated_at", "2023-07-20 12:26:44.808680"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ranjana Library"], ["description", "All india permit for Banglore"], ["address", nil], ["city", "Banglore"], ["country", "India"], ["created_at", "2023-07-20 12:26:44.810086"], ["updated_at", "2023-07-20 12:26:44.810086"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Sanjana Library"], ["description", "All india permit for Chennai"], ["address", nil], ["city", "Chennai"], ["country", "India"], ["created_at", "2023-07-20 12:26:44.812001"], ["updated_at", "2023-07-20 12:26:44.812001"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Digamber Library"], ["description", "All india permit for Kolkata"], ["address", nil], ["city", "Kolkata"], ["country", "India"], ["created_at", "2023-07-20 12:26:44.813500"], ["updated_at", "2023-07-20 12:26:44.813500"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.3ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kamala Library"], ["description", "All india permit for Delhi"], ["address", nil], ["city", "Delhi"], ["country", "India"], ["created_at", "2023-07-20 12:26:44.816017"], ["updated_at", "2023-07-20 12:26:44.816017"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "shweta.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "shweta.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Shwetlana"], ["lastname", "Madgundi"], ["email", "shweta.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:26:44.837748"], ["updated_at", "2023-07-20 12:26:44.837748"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "sanjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "sanjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Sanjana"], ["lastname", "Madgundi"], ["email", "sanjana.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:26:44.840465"], ["updated_at", "2023-07-20 12:26:44.840465"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "ranjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "ranjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Ranjana"], ["lastname", "Madgundi"], ["email", "ranjana.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:26:44.842587"], ["updated_at", "2023-07-20 12:26:44.842587"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "shamala.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "shamala.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Shamala"], ["lastname", "Madgundi"], ["email", "shamala.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:26:44.844565"], ["updated_at", "2023-07-20 12:26:44.844565"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "vyankatesh.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "vyankatesh.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Vyankatesh"], ["lastname", "Madgundi"], ["email", "vyankatesh.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9623189233"], ["created_at", "2023-07-20 12:26:44.846612"], ["updated_at", "2023-07-20 12:26:44.846612"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Godfather"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Bloodline"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Atomic Habits"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Affair"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Life is what you make it"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "A TALE OF TWO CITIES"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Ac - Sittaford Mystery"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.3ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "New Library"], ["description", "All india permit for Solapur"], ["address", nil], ["city", "Solapur"], ["country", "India"], ["created_at", "2023-07-20 12:26:50.621881"], ["updated_at", "2023-07-20 12:26:50.621881"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shamala Library"], ["description", "All india permit for Pune"], ["address", nil], ["city", "Oybe"], ["country", "India"], ["created_at", "2023-07-20 12:26:50.623759"], ["updated_at", "2023-07-20 12:26:50.623759"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shwetlana Library"], ["description", "All india permit for Mumbai"], ["address", nil], ["city", "Mumbai"], ["country", "India"], ["created_at", "2023-07-20 12:26:50.625153"], ["updated_at", "2023-07-20 12:26:50.625153"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.3ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ranjana Library"], ["description", "All india permit for Banglore"], ["address", nil], ["city", "Banglore"], ["country", "India"], ["created_at", "2023-07-20 12:26:50.626433"], ["updated_at", "2023-07-20 12:26:50.626433"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Sanjana Library"], ["description", "All india permit for Chennai"], ["address", nil], ["city", "Chennai"], ["country", "India"], ["created_at", "2023-07-20 12:26:50.632811"], ["updated_at", "2023-07-20 12:26:50.632811"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Digamber Library"], ["description", "All india permit for Kolkata"], ["address", nil], ["city", "Kolkata"], ["country", "India"], ["created_at", "2023-07-20 12:26:50.634496"], ["updated_at", "2023-07-20 12:26:50.634496"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kamala Library"], ["description", "All india permit for Delhi"], ["address", nil], ["city", "Delhi"], ["country", "India"], ["created_at", "2023-07-20 12:26:50.635872"], ["updated_at", "2023-07-20 12:26:50.635872"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "shweta.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "shweta.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "sanjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "sanjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "ranjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "ranjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "shamala.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "shamala.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "vyankatesh.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "vyankatesh.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Godfather"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Bloodline"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Atomic Habits"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Affair"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Life is what you make it"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "A TALE OF TWO CITIES"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Ac - Sittaford Mystery"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mBook Load (0.3ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  [1m[36mLibrary Load (0.8ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mBookUser Load (0.8ms)[0m  [1m[34mSELECT "book_users".* FROM "book_users"[0m
+  [1m[36mLibrary Load (0.5ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" ORDER BY "libraries"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mLibrary Load (0.3ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" ORDER BY "libraries"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Godfather"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Godfather"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.2ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Godfather"], ["LIMIT", 1]]
+  [1m[36mBook Create (1.1ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "checkout_users", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "The Godfather"], ["author_name", "Mario Puzo"], ["long_description", "Don Vito Corleone, head of a mafia family, decides to hand over his empire to his youngest son Michael. However, his decision unintentionally puts the lives of his loved ones in grave danger."], ["cost", 300.0], ["release_on", "1969-03-10 00:00:00"], ["genre", 0], ["library_id", 1], ["available", 1], ["check_in", "2023-07-10 12:30:08.255362"], ["check_out", "2023-07-15 12:30:08.267353"], ["language", "English"], ["checkout_users", nil], ["created_at", "2023-07-20 12:30:08.837036"], ["updated_at", "2023-07-20 12:30:08.837036"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLibraries (20230720053636)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "libraries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" varchar, "address" varchar, "city" varchar, "country" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053636"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBooks (20230720053641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "author_name" varchar, "long_description" text, "cost" float, "release_on" datetime(6), "genre" integer DEFAULT 0, "library_id" integer NOT NULL, "available" boolean, "check_in" datetime(6), "check_out" datetime(6), "language" varchar, "checkout_users" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_9bb3dacd9b"
+FOREIGN KEY ("library_id")
+  REFERENCES "libraries" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_books_on_library_id" ON "books" ("library_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053641"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUsers (20230720053646)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "firstname" varchar, "lastname" varchar, "email" varchar, "country" varchar, "phone_number" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053646"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBookUsers (20230720082136)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "book_users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "user_id" integer NOT NULL, "check_in" datetime(6), "check_out" datetime(6), "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ebd86ae5af"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_80c3db1bcd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_book_id" ON "book_users" ("book_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_user_id" ON "book_users" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720082136"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-07-20 12:30:47.530634"], ["updated_at", "2023-07-20 12:30:47.530634"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "New Library"], ["description", "All india permit for Solapur"], ["address", nil], ["city", "Solapur"], ["country", "India"], ["created_at", "2023-07-20 12:30:50.500003"], ["updated_at", "2023-07-20 12:30:50.500003"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shamala Library"], ["description", "All india permit for Pune"], ["address", nil], ["city", "Oybe"], ["country", "India"], ["created_at", "2023-07-20 12:30:50.501862"], ["updated_at", "2023-07-20 12:30:50.501862"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shwetlana Library"], ["description", "All india permit for Mumbai"], ["address", nil], ["city", "Mumbai"], ["country", "India"], ["created_at", "2023-07-20 12:30:50.503215"], ["updated_at", "2023-07-20 12:30:50.503215"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.3ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ranjana Library"], ["description", "All india permit for Banglore"], ["address", nil], ["city", "Banglore"], ["country", "India"], ["created_at", "2023-07-20 12:30:50.509346"], ["updated_at", "2023-07-20 12:30:50.509346"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Sanjana Library"], ["description", "All india permit for Chennai"], ["address", nil], ["city", "Chennai"], ["country", "India"], ["created_at", "2023-07-20 12:30:50.510994"], ["updated_at", "2023-07-20 12:30:50.510994"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Digamber Library"], ["description", "All india permit for Kolkata"], ["address", nil], ["city", "Kolkata"], ["country", "India"], ["created_at", "2023-07-20 12:30:50.512677"], ["updated_at", "2023-07-20 12:30:50.512677"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kamala Library"], ["description", "All india permit for Delhi"], ["address", nil], ["city", "Delhi"], ["country", "India"], ["created_at", "2023-07-20 12:30:50.513934"], ["updated_at", "2023-07-20 12:30:50.513934"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "shweta.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "shweta.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Shwetlana"], ["lastname", "Madgundi"], ["email", "shweta.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:30:50.521997"], ["updated_at", "2023-07-20 12:30:50.521997"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "sanjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "sanjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Sanjana"], ["lastname", "Madgundi"], ["email", "sanjana.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:30:50.524524"], ["updated_at", "2023-07-20 12:30:50.524524"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "ranjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "ranjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Ranjana"], ["lastname", "Madgundi"], ["email", "ranjana.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:30:50.527749"], ["updated_at", "2023-07-20 12:30:50.527749"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "shamala.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "shamala.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Shamala"], ["lastname", "Madgundi"], ["email", "shamala.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:30:50.530211"], ["updated_at", "2023-07-20 12:30:50.530211"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "vyankatesh.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "vyankatesh.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Vyankatesh"], ["lastname", "Madgundi"], ["email", "vyankatesh.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9623189233"], ["created_at", "2023-07-20 12:30:50.547521"], ["updated_at", "2023-07-20 12:30:50.547521"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Godfather"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.3ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "checkout_users", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "The Godfather"], ["author_name", "Mario Puzo"], ["long_description", "Don Vito Corleone, head of a mafia family, decides to hand over his empire to his youngest son Michael. However, his decision unintentionally puts the lives of his loved ones in grave danger."], ["cost", 300.0], ["release_on", "1969-03-10 00:00:00"], ["genre", 0], ["library_id", 1], ["available", 1], ["check_in", "2023-07-10 12:30:50.548706"], ["check_out", "2023-07-15 12:30:50.548771"], ["language", "English"], ["checkout_users", nil], ["created_at", "2023-07-20 12:30:50.559978"], ["updated_at", "2023-07-20 12:30:50.559978"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Bloodline"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "checkout_users", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Bloodline"], ["author_name", "Sidney Sheldon"], ["long_description", "Bloodline is another thriller novel from bestselling author, Sidney Sheldon. The story revolves around Elizabeth Roffe, who, after the unexpected death of her father, becomes the sole heiress to his billion dollar empire. She also realizes that she is all alone in a world that is hostile towards her."], ["cost", 400.0], ["release_on", "1977-01-01 00:00:00"], ["genre", 4], ["library_id", 2], ["available", 0], ["check_in", "2023-06-25 12:30:50.564887"], ["check_out", nil], ["language", "English"], ["checkout_users", nil], ["created_at", "2023-07-20 12:30:50.566048"], ["updated_at", "2023-07-20 12:30:50.566048"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Atomic Habits"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "checkout_users", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Atomic Habits"], ["author_name", "James Clear"], ["long_description", "People think that when you want to change your life, you need to think big. But world-renowned habits expert James Clear has discovered another way."], ["cost", 300.0], ["release_on", "2018-01-01 00:00:00"], ["genre", 1], ["library_id", 3], ["available", 1], ["check_in", "2023-07-05 12:30:50.567638"], ["check_out", "2023-07-10 12:30:50.567644"], ["language", "English"], ["checkout_users", nil], ["created_at", "2023-07-20 12:30:50.568763"], ["updated_at", "2023-07-20 12:30:50.568763"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Affair"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "checkout_users", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "The Affair"], ["author_name", "Danielle Steel"], ["long_description", "In this riveting novel set in Paris, the world's favourite storyteller, Danielle Steel, explores a high-profile affair that reverberates throughout an entire family reminding us that mothers and sisters come together when things fall apart. A year they would never forget."], ["cost", 250.0], ["release_on", nil], ["genre", 0], ["library_id", 4], ["available", 0], ["check_in", "2023-07-10 12:30:50.570269"], ["check_out", nil], ["language", "English"], ["checkout_users", nil], ["created_at", "2023-07-20 12:30:50.571424"], ["updated_at", "2023-07-20 12:30:50.571424"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Life is what you make it"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "checkout_users", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Life is what you make it"], ["author_name", "Preeti Shenoy"], ["long_description", "Top Books of 2011, ? a Nielsen list, which is released by the Hindustan Times. The book was also selected as one of the all-time bestsellers of 2011 by the Times of India. Life Is What You Make It is based on a love story that has been set in India in the 90s."], ["cost", 600.0], ["release_on", "2018-01-01 00:00:00"], ["genre", 1], ["library_id", 5], ["available", 1], ["check_in", "2023-07-03 12:30:50.573016"], ["check_out", "2023-07-15 12:30:50.573025"], ["language", "English"], ["checkout_users", nil], ["created_at", "2023-07-20 12:30:50.574248"], ["updated_at", "2023-07-20 12:30:50.574248"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "A TALE OF TWO CITIES"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "checkout_users", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "A TALE OF TWO CITIES"], ["author_name", "Charles Dickens"], ["long_description", "A Tale of Two Cities is an 1859 historical novel by Charles Dickens, set in London and Paris before and during the French Revolution. The novel tells the story of the French Doctor Manette, his 18-year-long imprisonment in the Bastille in Paris and his release to live in London with his daughter Lucie, whom he had never met. "], ["cost", 250.0], ["release_on", nil], ["genre", 3], ["library_id", 6], ["available", 0], ["check_in", "2023-07-03 12:30:50.575840"], ["check_out", nil], ["language", "English"], ["checkout_users", nil], ["created_at", "2023-07-20 12:30:50.576970"], ["updated_at", "2023-07-20 12:30:50.576970"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Ac - Sittaford Mystery"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "checkout_users", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ac - Sittaford Mystery"], ["author_name", "Agatha Christie"], ["long_description", "A seance in a snowbound Dartmoor house predicts a grisly murder. In a remote house in the middle of Dartmoor, six shadowy figures huddle around a small table for a seance. Tension rises as the spirits spell out a chilling message: 'Captain Trevelyan dead murder'.Is this black magic or simply a macabre joke?"], ["cost", 450.0], ["release_on", "2017-10-05 00:00:00"], ["genre", 2], ["library_id", 7], ["available", 1], ["check_in", "2023-07-03 12:30:50.578177"], ["check_out", "2023-07-15 12:30:50.578190"], ["language", "English"], ["checkout_users", nil], ["created_at", "2023-07-20 12:30:50.580898"], ["updated_at", "2023-07-20 12:30:50.580898"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mBook Load (0.3ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  [1m[36mLibrary Load (0.3ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" ORDER BY "libraries"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mBook Load (0.3ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  [1m[36mBook Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLibraries (20230720053636)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "libraries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" varchar, "address" varchar, "city" varchar, "country" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053636"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBooks (20230720053641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "author_name" varchar, "long_description" text, "cost" float, "release_on" datetime(6), "genre" integer DEFAULT 0, "library_id" integer NOT NULL, "available" boolean, "check_in" datetime(6), "check_out" datetime(6), "language" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_9bb3dacd9b"
+FOREIGN KEY ("library_id")
+  REFERENCES "libraries" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_books_on_library_id" ON "books" ("library_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053641"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUsers (20230720053646)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "firstname" varchar, "lastname" varchar, "email" varchar, "country" varchar, "phone_number" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053646"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBookUsers (20230720082136)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "book_users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "user_id" integer NOT NULL, "check_in" datetime(6), "check_out" datetime(6), "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ebd86ae5af"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_80c3db1bcd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_book_id" ON "book_users" ("book_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_user_id" ON "book_users" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720082136"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-07-20 12:34:46.086285"], ["updated_at", "2023-07-20 12:34:46.086285"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "New Library"], ["description", "All india permit for Solapur"], ["address", nil], ["city", "Solapur"], ["country", "India"], ["created_at", "2023-07-20 12:34:53.653245"], ["updated_at", "2023-07-20 12:34:53.653245"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shamala Library"], ["description", "All india permit for Pune"], ["address", nil], ["city", "Oybe"], ["country", "India"], ["created_at", "2023-07-20 12:34:53.660281"], ["updated_at", "2023-07-20 12:34:53.660281"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shwetlana Library"], ["description", "All india permit for Mumbai"], ["address", nil], ["city", "Mumbai"], ["country", "India"], ["created_at", "2023-07-20 12:34:53.661801"], ["updated_at", "2023-07-20 12:34:53.661801"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "shweta.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "shweta.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Shwetlana"], ["lastname", "Madgundi"], ["email", "shweta.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:34:53.669003"], ["updated_at", "2023-07-20 12:34:53.669003"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "sanjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "sanjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Sanjana"], ["lastname", "Madgundi"], ["email", "sanjana.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:34:53.671422"], ["updated_at", "2023-07-20 12:34:53.671422"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "ranjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "ranjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Ranjana"], ["lastname", "Madgundi"], ["email", "ranjana.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:34:53.674241"], ["updated_at", "2023-07-20 12:34:53.674241"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "shamala.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "shamala.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Shamala"], ["lastname", "Madgundi"], ["email", "shamala.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:34:53.677016"], ["updated_at", "2023-07-20 12:34:53.677016"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "vyankatesh.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "vyankatesh.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Vyankatesh"], ["lastname", "Madgundi"], ["email", "vyankatesh.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9623189233"], ["created_at", "2023-07-20 12:34:53.694521"], ["updated_at", "2023-07-20 12:34:53.694521"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Godfather"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "The Godfather"], ["author_name", "Mario Puzo"], ["long_description", "Don Vito Corleone, head of a mafia family, decides to hand over his empire to his youngest son Michael. However, his decision unintentionally puts the lives of his loved ones in grave danger."], ["cost", 300.0], ["release_on", "1969-03-10 00:00:00"], ["genre", 0], ["library_id", 1], ["available", 1], ["check_in", "2023-07-10 12:34:53.695742"], ["check_out", "2023-07-15 12:34:53.695808"], ["language", "English"], ["created_at", "2023-07-20 12:34:53.707134"], ["updated_at", "2023-07-20 12:34:53.707134"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Bloodline"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Bloodline"], ["author_name", "Sidney Sheldon"], ["long_description", "Bloodline is another thriller novel from bestselling author, Sidney Sheldon. The story revolves around Elizabeth Roffe, who, after the unexpected death of her father, becomes the sole heiress to his billion dollar empire. She also realizes that she is all alone in a world that is hostile towards her."], ["cost", 400.0], ["release_on", "1977-01-01 00:00:00"], ["genre", 4], ["library_id", 2], ["available", 0], ["check_in", "2023-06-25 12:34:53.712083"], ["check_out", nil], ["language", "English"], ["created_at", "2023-07-20 12:34:53.713313"], ["updated_at", "2023-07-20 12:34:53.713313"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Atomic Habits"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Atomic Habits"], ["author_name", "James Clear"], ["long_description", "People think that when you want to change your life, you need to think big. But world-renowned habits expert James Clear has discovered another way."], ["cost", 300.0], ["release_on", "2018-01-01 00:00:00"], ["genre", 1], ["library_id", 3], ["available", 1], ["check_in", "2023-07-05 12:34:53.714940"], ["check_out", "2023-07-10 12:34:53.714946"], ["language", "English"], ["created_at", "2023-07-20 12:34:53.716115"], ["updated_at", "2023-07-20 12:34:53.716115"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Affair"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "The Affair"], ["author_name", "Danielle Steel"], ["long_description", "In this riveting novel set in Paris, the world's favourite storyteller, Danielle Steel, explores a high-profile affair that reverberates throughout an entire family reminding us that mothers and sisters come together when things fall apart. A year they would never forget."], ["cost", 250.0], ["release_on", nil], ["genre", 0], ["library_id", 2], ["available", 0], ["check_in", "2023-07-10 12:34:53.717697"], ["check_out", nil], ["language", "English"], ["created_at", "2023-07-20 12:34:53.718865"], ["updated_at", "2023-07-20 12:34:53.718865"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Life is what you make it"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Life is what you make it"], ["author_name", "Preeti Shenoy"], ["long_description", "Top Books of 2011, ? a Nielsen list, which is released by the Hindustan Times. The book was also selected as one of the all-time bestsellers of 2011 by the Times of India. Life Is What You Make It is based on a love story that has been set in India in the 90s."], ["cost", 600.0], ["release_on", "2018-01-01 00:00:00"], ["genre", 1], ["library_id", 1], ["available", 1], ["check_in", "2023-07-03 12:34:53.720414"], ["check_out", "2023-07-15 12:34:53.720424"], ["language", "English"], ["created_at", "2023-07-20 12:34:53.721649"], ["updated_at", "2023-07-20 12:34:53.721649"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "A TALE OF TWO CITIES"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "A TALE OF TWO CITIES"], ["author_name", "Charles Dickens"], ["long_description", "A Tale of Two Cities is an 1859 historical novel by Charles Dickens, set in London and Paris before and during the French Revolution. The novel tells the story of the French Doctor Manette, his 18-year-long imprisonment in the Bastille in Paris and his release to live in London with his daughter Lucie, whom he had never met. "], ["cost", 250.0], ["release_on", nil], ["genre", 3], ["library_id", 1], ["available", 0], ["check_in", "2023-07-03 12:34:53.723181"], ["check_out", nil], ["language", "English"], ["created_at", "2023-07-20 12:34:53.724298"], ["updated_at", "2023-07-20 12:34:53.724298"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Ac - Sittaford Mystery"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ac - Sittaford Mystery"], ["author_name", "Agatha Christie"], ["long_description", "A seance in a snowbound Dartmoor house predicts a grisly murder. In a remote house in the middle of Dartmoor, six shadowy figures huddle around a small table for a seance. Tension rises as the spirits spell out a chilling message: 'Captain Trevelyan dead murder'.Is this black magic or simply a macabre joke?"], ["cost", 450.0], ["release_on", "2017-10-05 00:00:00"], ["genre", 2], ["library_id", 2], ["available", 1], ["check_in", "2023-07-03 12:34:53.725572"], ["check_out", "2023-07-15 12:34:53.725587"], ["language", "English"], ["created_at", "2023-07-20 12:34:53.726704"], ["updated_at", "2023-07-20 12:34:53.726704"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" ORDER BY "libraries"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  [1m[36mBook Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 1]]
+  [1m[36mBookUser Load (0.4ms)[0m  [1m[34mSELECT "book_users".* FROM "book_users"[0m
+  [1m[36mBook Load (0.4ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mBookUser Load (0.3ms)[0m  [1m[34mSELECT "book_users".* FROM "book_users"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBookUser Create (1.0ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 1], ["user_id", 1], ["check_in", "2023-07-10 12:37:08.842821"], ["check_out", "2023-07-15 12:37:08.843188"], ["notes", nil], ["created_at", "2023-07-20 12:37:52.705322"], ["updated_at", "2023-07-20 12:37:52.705322"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mBookUser Load (0.2ms)[0m  [1m[34mSELECT "book_users".* FROM "book_users"[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLibraries (20230720053636)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "libraries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" varchar, "address" varchar, "city" varchar, "country" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053636"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBooks (20230720053641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "author_name" varchar, "long_description" text, "cost" float, "release_on" datetime(6), "genre" integer DEFAULT 0, "library_id" integer NOT NULL, "available" boolean, "check_in" datetime(6), "check_out" datetime(6), "language" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_9bb3dacd9b"
+FOREIGN KEY ("library_id")
+  REFERENCES "libraries" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_books_on_library_id" ON "books" ("library_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053641"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUsers (20230720053646)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "firstname" varchar, "lastname" varchar, "email" varchar, "country" varchar, "phone_number" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720053646"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBookUsers (20230720082136)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "book_users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "user_id" integer NOT NULL, "check_in" datetime(6), "check_out" datetime(6), "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ebd86ae5af"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_80c3db1bcd"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_book_id" ON "book_users" ("book_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_book_users_on_user_id" ON "book_users" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230720082136"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-07-20 12:39:14.526849"], ["updated_at", "2023-07-20 12:39:14.526849"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "New Library"], ["description", "All india permit for Solapur"], ["address", nil], ["city", "Solapur"], ["country", "India"], ["created_at", "2023-07-20 12:39:17.001008"], ["updated_at", "2023-07-20 12:39:17.001008"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shamala Library"], ["description", "All india permit for Pune"], ["address", nil], ["city", "Oybe"], ["country", "India"], ["created_at", "2023-07-20 12:39:17.002802"], ["updated_at", "2023-07-20 12:39:17.002802"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Create (0.2ms)[0m  [1m[32mINSERT INTO "libraries" ("name", "description", "address", "city", "country", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Shwetlana Library"], ["description", "All india permit for Mumbai"], ["address", nil], ["city", "Mumbai"], ["country", "India"], ["created_at", "2023-07-20 12:39:17.004168"], ["updated_at", "2023-07-20 12:39:17.004168"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "shweta.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "shweta.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Shwetlana"], ["lastname", "Madgundi"], ["email", "shweta.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:39:17.016120"], ["updated_at", "2023-07-20 12:39:17.016120"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "sanjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "sanjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Sanjana"], ["lastname", "Madgundi"], ["email", "sanjana.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:39:17.018489"], ["updated_at", "2023-07-20 12:39:17.018489"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "ranjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "ranjana.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Ranjana"], ["lastname", "Madgundi"], ["email", "ranjana.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:39:17.020627"], ["updated_at", "2023-07-20 12:39:17.020627"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "shamala.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "shamala.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Shamala"], ["lastname", "Madgundi"], ["email", "shamala.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9527400566"], ["created_at", "2023-07-20 12:39:17.022760"], ["updated_at", "2023-07-20 12:39:17.022760"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "vyankatesh.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "vyankatesh.madgundi@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("firstname", "lastname", "email", "country", "phone_number", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["firstname", "Vyankatesh"], ["lastname", "Madgundi"], ["email", "vyankatesh.madgundi@gmail.com"], ["country", "India"], ["phone_number", "9623189233"], ["created_at", "2023-07-20 12:39:17.025901"], ["updated_at", "2023-07-20 12:39:17.025901"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Godfather"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.3ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "The Godfather"], ["author_name", "Mario Puzo"], ["long_description", "Don Vito Corleone, head of a mafia family, decides to hand over his empire to his youngest son Michael. However, his decision unintentionally puts the lives of his loved ones in grave danger."], ["cost", 300.0], ["release_on", "1969-03-10 00:00:00"], ["genre", 0], ["library_id", 1], ["available", 1], ["check_in", "2023-07-10 12:39:17.027139"], ["check_out", "2023-07-15 12:39:17.027205"], ["language", "English"], ["created_at", "2023-07-20 12:39:17.040012"], ["updated_at", "2023-07-20 12:39:17.040012"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.3ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 1], ["user_id", 1], ["check_in", "2023-07-10 12:39:17.027139"], ["check_out", "2023-07-15 12:39:17.027205"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.060255"], ["updated_at", "2023-07-20 12:39:17.060255"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.3ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 1], ["user_id", 3], ["check_in", "2023-06-30 12:39:17.027139"], ["check_out", "2023-07-04 12:39:17.027205"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.062808"], ["updated_at", "2023-07-20 12:39:17.062808"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 1], ["user_id", 2], ["check_in", "2023-06-10 12:39:17.027139"], ["check_out", "2023-06-24 12:39:17.027205"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.065090"], ["updated_at", "2023-07-20 12:39:17.065090"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Bloodline"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Bloodline"], ["author_name", "Sidney Sheldon"], ["long_description", "Bloodline is another thriller novel from bestselling author, Sidney Sheldon. The story revolves around Elizabeth Roffe, who, after the unexpected death of her father, becomes the sole heiress to his billion dollar empire. She also realizes that she is all alone in a world that is hostile towards her."], ["cost", 400.0], ["release_on", "1977-01-01 00:00:00"], ["genre", 4], ["library_id", 2], ["available", 0], ["check_in", "2023-06-25 12:39:17.066101"], ["check_out", nil], ["language", "English"], ["created_at", "2023-07-20 12:39:17.067322"], ["updated_at", "2023-07-20 12:39:17.067322"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 2], ["user_id", 2], ["check_in", "2023-06-25 12:39:17.066101"], ["check_out", nil], ["notes", nil], ["created_at", "2023-07-20 12:39:17.069635"], ["updated_at", "2023-07-20 12:39:17.069635"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 2], ["user_id", 4], ["check_in", "2023-06-15 12:39:17.066101"], ["check_out", "2023-06-24 12:39:17.066101"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.071926"], ["updated_at", "2023-07-20 12:39:17.071926"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 2], ["user_id", 5], ["check_in", "2023-05-26 12:39:17.066101"], ["check_out", "2023-06-04 12:39:17.066101"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.074514"], ["updated_at", "2023-07-20 12:39:17.074514"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Atomic Habits"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Atomic Habits"], ["author_name", "James Clear"], ["long_description", "People think that when you want to change your life, you need to think big. But world-renowned habits expert James Clear has discovered another way."], ["cost", 300.0], ["release_on", "2018-01-01 00:00:00"], ["genre", 1], ["library_id", 3], ["available", 1], ["check_in", "2023-07-05 12:39:17.075620"], ["check_out", "2023-07-10 12:39:17.075627"], ["language", "English"], ["created_at", "2023-07-20 12:39:17.076843"], ["updated_at", "2023-07-20 12:39:17.076843"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 3], ["user_id", 3], ["check_in", "2023-07-05 12:39:17.075595"], ["check_out", "2023-07-10 12:39:17.075611"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.080119"], ["updated_at", "2023-07-20 12:39:17.080119"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 3], ["user_id", 1], ["check_in", "2023-06-25 12:39:17.075595"], ["check_out", "2023-06-29 12:39:17.075611"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.082623"], ["updated_at", "2023-07-20 12:39:17.082623"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.3ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 3], ["user_id", 2], ["check_in", "2023-06-05 12:39:17.075595"], ["check_out", "2023-06-19 12:39:17.075611"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.084996"], ["updated_at", "2023-07-20 12:39:17.084996"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "The Affair"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "The Affair"], ["author_name", "Danielle Steel"], ["long_description", "In this riveting novel set in Paris, the world's favourite storyteller, Danielle Steel, explores a high-profile affair that reverberates throughout an entire family reminding us that mothers and sisters come together when things fall apart. A year they would never forget."], ["cost", 250.0], ["release_on", nil], ["genre", 0], ["library_id", 2], ["available", 0], ["check_in", "2023-07-10 12:39:17.086489"], ["check_out", nil], ["language", "English"], ["created_at", "2023-07-20 12:39:17.087715"], ["updated_at", "2023-07-20 12:39:17.087715"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 4], ["user_id", 4], ["check_in", "2023-07-10 12:39:17.086489"], ["check_out", nil], ["notes", nil], ["created_at", "2023-07-20 12:39:17.090141"], ["updated_at", "2023-07-20 12:39:17.090141"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 4], ["user_id", 3], ["check_in", "2023-06-30 12:39:17.086489"], ["check_out", "2023-07-09 12:39:17.086489"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.092471"], ["updated_at", "2023-07-20 12:39:17.092471"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 4], ["user_id", 5], ["check_in", "2023-06-10 12:39:17.086489"], ["check_out", "2023-06-19 12:39:17.086489"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.094811"], ["updated_at", "2023-07-20 12:39:17.094811"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 4], ["user_id", 2], ["check_in", "2023-05-26 12:39:17.086489"], ["check_out", nil], ["notes", nil], ["created_at", "2023-07-20 12:39:17.097104"], ["updated_at", "2023-07-20 12:39:17.097104"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Life is what you make it"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Life is what you make it"], ["author_name", "Preeti Shenoy"], ["long_description", "Top Books of 2011, ? a Nielsen list, which is released by the Hindustan Times. The book was also selected as one of the all-time bestsellers of 2011 by the Times of India. Life Is What You Make It is based on a love story that has been set in India in the 90s."], ["cost", 600.0], ["release_on", "2018-01-01 00:00:00"], ["genre", 1], ["library_id", 1], ["available", 1], ["check_in", "2023-07-03 12:39:17.098160"], ["check_out", "2023-07-15 12:39:17.098174"], ["language", "English"], ["created_at", "2023-07-20 12:39:17.099637"], ["updated_at", "2023-07-20 12:39:17.099637"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 5], ["user_id", 5], ["check_in", "2023-07-03 12:39:17.098160"], ["check_out", "2023-07-15 12:39:17.098174"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.102616"], ["updated_at", "2023-07-20 12:39:17.102616"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 5], ["user_id", 1], ["check_in", "2023-06-23 12:39:17.098160"], ["check_out", "2023-07-04 12:39:17.098174"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.105232"], ["updated_at", "2023-07-20 12:39:17.105232"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.3ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 5], ["user_id", 2], ["check_in", "2023-06-03 12:39:17.098160"], ["check_out", "2023-06-24 12:39:17.098174"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.107666"], ["updated_at", "2023-07-20 12:39:17.107666"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 5], ["user_id", 3], ["check_in", "2023-05-19 12:39:17.098160"], ["check_out", "2023-06-14 12:39:17.098174"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.110034"], ["updated_at", "2023-07-20 12:39:17.110034"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "A TALE OF TWO CITIES"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "A TALE OF TWO CITIES"], ["author_name", "Charles Dickens"], ["long_description", "A Tale of Two Cities is an 1859 historical novel by Charles Dickens, set in London and Paris before and during the French Revolution. The novel tells the story of the French Doctor Manette, his 18-year-long imprisonment in the Bastille in Paris and his release to live in London with his daughter Lucie, whom he had never met. "], ["cost", 250.0], ["release_on", nil], ["genre", 3], ["library_id", 1], ["available", 0], ["check_in", "2023-07-03 12:39:17.111041"], ["check_out", nil], ["language", "English"], ["created_at", "2023-07-20 12:39:17.112307"], ["updated_at", "2023-07-20 12:39:17.112307"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 6], ["user_id", 5], ["check_in", "2023-07-03 12:39:17.111041"], ["check_out", nil], ["notes", nil], ["created_at", "2023-07-20 12:39:17.114599"], ["updated_at", "2023-07-20 12:39:17.114599"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" WHERE "libraries"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."name" = ? LIMIT ?[0m  [["name", "Ac - Sittaford Mystery"], ["LIMIT", 1]]
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("name", "author_name", "long_description", "cost", "release_on", "genre", "library_id", "available", "check_in", "check_out", "language", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ac - Sittaford Mystery"], ["author_name", "Agatha Christie"], ["long_description", "A seance in a snowbound Dartmoor house predicts a grisly murder. In a remote house in the middle of Dartmoor, six shadowy figures huddle around a small table for a seance. Tension rises as the spirits spell out a chilling message: 'Captain Trevelyan dead murder'.Is this black magic or simply a macabre joke?"], ["cost", 450.0], ["release_on", "2017-10-05 00:00:00"], ["genre", 2], ["library_id", 2], ["available", 1], ["check_in", "2023-07-03 12:39:17.115583"], ["check_out", "2023-07-15 12:39:17.115598"], ["language", "English"], ["created_at", "2023-07-20 12:39:17.116809"], ["updated_at", "2023-07-20 12:39:17.116809"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mBookUser Create (0.2ms)[0m  [1m[32mINSERT INTO "book_users" ("book_id", "user_id", "check_in", "check_out", "notes", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 7], ["user_id", 4], ["check_in", "2023-07-03 12:39:17.115583"], ["check_out", "2023-07-15 12:39:17.115598"], ["notes", nil], ["created_at", "2023-07-20 12:39:17.119197"], ["updated_at", "2023-07-20 12:39:17.119197"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mBookUser Load (0.2ms)[0m  [1m[34mSELECT "book_users".* FROM "book_users"[0m
+  [1m[36mLibrary Load (0.2ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" ORDER BY "libraries"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 1]]
+  [1m[36mLibrary Load (0.6ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  [1m[36mLibrary Load (0.2ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+Started GET "/" for ::1 at 2023-07-20 19:12:24 +0530
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /opt/homebrew/lib/ruby/gems/3.2.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /opt/homebrew/lib/ruby/gems/3.2.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 7.8ms | Allocations: 633)
+Completed 200 OK in 52ms (Views: 22.6ms | ActiveRecord: 0.0ms | Allocations: 5940)
+
+
+Started GET "/libraries" for ::1 at 2023-07-20 19:12:59 +0530
+Processing by LibrariesController#index as HTML
+Completed 500 Internal Server Error in 25ms (ActiveRecord: 0.0ms | Allocations: 2104)
+
+
+  
+NameError (uninitialized constant LibrariesController::PostSerializer):
+  
+app/controllers/libraries_controller.rb:22:in `index'
+Started GET "/favicon.ico" for ::1 at 2023-07-20 19:12:59 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/libraries" for ::1 at 2023-07-20 19:13:30 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" INNER JOIN "books" ON "books"."library_id" = "libraries"."id" ORDER BY "libraries"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/libraries_controller.rb:6:in `index'
+Completed 500 Internal Server Error in 40ms (ActiveRecord: 0.5ms | Allocations: 11846)
+
+
+  
+NameError (uninitialized constant LibrariesController::PostSerializer):
+  
+app/controllers/libraries_controller.rb:22:in `index'
+Started GET "/libraries" for ::1 at 2023-07-20 19:13:33 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.2ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" INNER JOIN "books" ON "books"."library_id" = "libraries"."id" ORDER BY "libraries"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/libraries_controller.rb:6:in `index'
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.2ms | Allocations: 770)
+
+
+  
+NameError (uninitialized constant LibrariesController::PostSerializer):
+  
+app/controllers/libraries_controller.rb:22:in `index'
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" INNER JOIN "books" ON "books"."library_id" = "libraries"."id" ORDER BY "libraries"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mLibrary Load (0.5ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" INNER JOIN "books" ON "books"."library_id" = "libraries"."id"[0m
+  [1m[36mLibrary Load (0.3ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" INNER JOIN "books" ON "books"."library_id" = "libraries"."id"[0m
+  [1m[36mLibrary Load (0.5ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" IN (?, ?, ?)[0m  [["library_id", 1], ["library_id", 2], ["library_id", 3]]
+Started GET "/" for 127.0.0.1 at 2023-07-20 19:34:08 +0530
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /opt/homebrew/lib/ruby/gems/3.2.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /opt/homebrew/lib/ruby/gems/3.2.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.4ms | Allocations: 489)
+Completed 200 OK in 12ms (Views: 4.1ms | ActiveRecord: 0.0ms | Allocations: 4066)
+
+
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:34:22 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.2ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" INNER JOIN "books" ON "books"."library_id" = "libraries"."id" ORDER BY "libraries"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/libraries_controller.rb:6:in `index'
+Completed 500 Internal Server Error in 34ms (ActiveRecord: 0.7ms | Allocations: 12199)
+
+
+  
+NameError (uninitialized constant LibrariesController::PostSerializer):
+  
+app/controllers/libraries_controller.rb:22:in `index'
+Started GET "/favicon.ico" for 127.0.0.1 at 2023-07-20 19:34:22 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:35:14 +0530
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" INNER JOIN "books" ON "books"."library_id" = "libraries"."id" ORDER BY "libraries"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/libraries_controller.rb:6:in `index'
+Completed 200 OK in 17ms (Views: 0.2ms | ActiveRecord: 0.3ms | Allocations: 14833)
+
+
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:35:38 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" INNER JOIN "books" ON "books"."library_id" = "libraries"."id"[0m
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.4ms | Allocations: 7698)
+
+
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:36:07 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" IN (?, ?, ?)[0m  [["library_id", 1], ["library_id", 2], ["library_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+Completed 200 OK in 24ms (Views: 0.2ms | ActiveRecord: 0.7ms | Allocations: 17070)
+
+
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:39:12 +0530
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 0.0ms | Allocations: 10794)
+
+
+  [1m[36mCACHE Library Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  
+NoMethodError (undefined method `books' for #<ActiveRecord::Relation [#<Library id: 1, name: "New Library", description: "All india permit for Solapur", address: nil, city: "Solapur", country: "India", created_at: "2023-07-20 12:39:17.001008000 +0000", updated_at: "2023-07-20 12:39:17.001008000 +0000">, #<Library id: 2, name: "Shamala Library", description: "All india permit for Pune", address: nil, city: "Oybe", country: "India", created_at: "2023-07-20 12:39:17.002802000 +0000", updated_at: "2023-07-20 12:39:17.002802000 +0000">, #<Library id: 3, name: "Shwetlana Library", description: "All india permit for Mumbai", address: nil, city: "Mumbai", country: "India", created_at: "2023-07-20 12:39:17.004168000 +0000", updated_at: "2023-07-20 12:39:17.004168000 +0000">]>):
+  
+app/controllers/libraries_controller.rb:22:in `index'
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:39:39 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+Completed 500 Internal Server Error in 4ms (Allocations: 4775)
+
+
+  [1m[36mCACHE Library Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  
+NoMethodError (undefined method `books' for #<ActiveRecord::Relation [#<Library id: 1, name: "New Library", description: "All india permit for Solapur", address: nil, city: "Solapur", country: "India", created_at: "2023-07-20 12:39:17.001008000 +0000", updated_at: "2023-07-20 12:39:17.001008000 +0000">, #<Library id: 2, name: "Shamala Library", description: "All india permit for Pune", address: nil, city: "Oybe", country: "India", created_at: "2023-07-20 12:39:17.002802000 +0000", updated_at: "2023-07-20 12:39:17.002802000 +0000">, #<Library id: 3, name: "Shwetlana Library", description: "All india permit for Mumbai", address: nil, city: "Mumbai", country: "India", created_at: "2023-07-20 12:39:17.004168000 +0000", updated_at: "2023-07-20 12:39:17.004168000 +0000">]>):
+  
+app/controllers/libraries_controller.rb:22:in `index'
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:39:51 +0530
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.0ms | Allocations: 10794)
+
+
+  [1m[36mCACHE Library Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  
+NoMethodError (undefined method `books' for #<ActiveRecord::Relation [#<Library id: 1, name: "New Library", description: "All india permit for Solapur", address: nil, city: "Solapur", country: "India", created_at: "2023-07-20 12:39:17.001008000 +0000", updated_at: "2023-07-20 12:39:17.001008000 +0000">, #<Library id: 2, name: "Shamala Library", description: "All india permit for Pune", address: nil, city: "Oybe", country: "India", created_at: "2023-07-20 12:39:17.002802000 +0000", updated_at: "2023-07-20 12:39:17.002802000 +0000">, #<Library id: 3, name: "Shwetlana Library", description: "All india permit for Mumbai", address: nil, city: "Mumbai", country: "India", created_at: "2023-07-20 12:39:17.004168000 +0000", updated_at: "2023-07-20 12:39:17.004168000 +0000">]>):
+  
+app/controllers/libraries_controller.rb:22:in `index'
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:40:37 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+Completed 500 Internal Server Error in 27ms (ActiveRecord: 0.9ms | Allocations: 17197)
+
+
+  
+NoMethodError (undefined method `books' for #<Book id: 1, name: "The Godfather", author_name: "Mario Puzo", long_description: "Don Vito Corleone, head of a mafia family, decides...", cost: 300.0, release_on: "1969-03-10 00:00:00.000000000 +0000", genre: "fiction", library_id: 1, available: true, check_in: "2023-07-10 12:39:17.027139000 +0000", check_out: "2023-07-15 12:39:17.027205000 +0000", language: "English", created_at: "2023-07-20 12:39:17.040012000 +0000", updated_at: "2023-07-20 12:39:17.040012000 +0000">):
+  
+app/controllers/libraries_controller.rb:22:in `index'
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:40:51 +0530
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+Completed 500 Internal Server Error in 44ms (ActiveRecord: 1.3ms | Allocations: 23178)
+
+
+  
+NoMethodError (undefined method `books' for #<Book id: 1, name: "The Godfather", author_name: "Mario Puzo", long_description: "Don Vito Corleone, head of a mafia family, decides...", cost: 300.0, release_on: "1969-03-10 00:00:00.000000000 +0000", genre: "fiction", library_id: 1, available: true, check_in: "2023-07-10 12:39:17.027139000 +0000", check_out: "2023-07-15 12:39:17.027205000 +0000", language: "English", created_at: "2023-07-20 12:39:17.040012000 +0000", updated_at: "2023-07-20 12:39:17.040012000 +0000">):
+  
+app/controllers/libraries_controller.rb:22:in `index'
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:41:20 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 0.7ms | Allocations: 11435)
+
+
+  
+NoMethodError (undefined method `book' for #<Book id: 1, name: "The Godfather", author_name: "Mario Puzo", long_description: "Don Vito Corleone, head of a mafia family, decides...", cost: 300.0, release_on: "1969-03-10 00:00:00.000000000 +0000", genre: "fiction", library_id: 1, available: true, check_in: "2023-07-10 12:39:17.027139000 +0000", check_out: "2023-07-15 12:39:17.027205000 +0000", language: "English", created_at: "2023-07-20 12:39:17.040012000 +0000", updated_at: "2023-07-20 12:39:17.040012000 +0000">):
+  
+app/controllers/libraries_controller.rb:22:in `index'
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:41:58 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 0.6ms | Allocations: 4343)
+
+
+  
+NoMethodError (undefined method `book' for #<Library id: 1, name: "New Library", description: "All india permit for Solapur", address: nil, city: "Solapur", country: "India", created_at: "2023-07-20 12:39:17.001008000 +0000", updated_at: "2023-07-20 12:39:17.001008000 +0000">):
+  
+app/controllers/libraries_controller.rb:22:in `index'
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:42:12 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 2]]
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:22:in `index'
+Completed 200 OK in 13ms (Views: 0.3ms | ActiveRecord: 0.7ms | Allocations: 14922)
+
+
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:44:41 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 0.8ms | Allocations: 11310)
+
+
+  
+NoMethodError (undefined method `user' for #<Book id: 1, name: "The Godfather", author_name: "Mario Puzo", long_description: "Don Vito Corleone, head of a mafia family, decides...", cost: 300.0, release_on: "1969-03-10 00:00:00.000000000 +0000", genre: "fiction", library_id: 1, available: true, check_in: "2023-07-10 12:39:17.027139000 +0000", check_out: "2023-07-15 12:39:17.027205000 +0000", language: "English", created_at: "2023-07-20 12:39:17.040012000 +0000", updated_at: "2023-07-20 12:39:17.040012000 +0000">):
+  
+app/controllers/libraries_controller.rb:9:in `index'
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:44:53 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 1]]
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 5]]
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 6]]
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 2]]
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 2]]
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 4]]
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 7]]
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:9:in `index'
+Completed 200 OK in 23ms (Views: 0.2ms | ActiveRecord: 1.0ms | Allocations: 32013)
+
+
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:46:06 +0530
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 1]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 1]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 5]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 6]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 2]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 2]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 4]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 7]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" = ?[0m  [["library_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+Completed 200 OK in 54ms (Views: 0.3ms | ActiveRecord: 2.6ms | Allocations: 44021)
+
+
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:46:35 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.3ms | Allocations: 4674)
+
+
+  
+ActiveRecord::AssociationNotFoundError (Association named 'book' was not found on Library; perhaps you misspelled it?):
+  
+app/controllers/libraries_controller.rb:8:in `index'
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:46:40 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" IN (?, ?, ?)[0m  [["library_id", 1], ["library_id", 2], ["library_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 1]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 5]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 6]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 2]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 4]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 7]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+Completed 200 OK in 19ms (Views: 0.2ms | ActiveRecord: 0.9ms | Allocations: 28760)
+
+
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:46:47 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.2ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mBook Load (0.5ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" IN (?, ?, ?)[0m  [["library_id", 1], ["library_id", 2], ["library_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 1]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 5]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 6]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 2]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 4]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 7]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "book_users" ON "users"."id" = "book_users"."user_id" WHERE "book_users"."book_id" = ?[0m  [["book_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+Completed 200 OK in 25ms (Views: 0.2ms | ActiveRecord: 1.3ms | Allocations: 13009)
+
+
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:47:19 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.0ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" IN (?, ?, ?)[0m  [["library_id", 1], ["library_id", 2], ["library_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mBookUser Load (0.1ms)[0m  [1m[34mSELECT "book_users".* FROM "book_users" WHERE "book_users"."book_id" IN (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 1], ["book_id", 5], ["book_id", 6], ["book_id", 2], ["book_id", 4], ["book_id", 7], ["book_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?, ?, ?, ?)[0m  [["id", 1], ["id", 3], ["id", 2], ["id", 4], ["id", 5]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+Completed 200 OK in 20ms (Views: 0.2ms | ActiveRecord: 1.1ms | Allocations: 26828)
+
+
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:47:26 +0530
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.2ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mBook Load (0.4ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" IN (?, ?, ?)[0m  [["library_id", 1], ["library_id", 2], ["library_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mBookUser Load (0.5ms)[0m  [1m[34mSELECT "book_users".* FROM "book_users" WHERE "book_users"."book_id" IN (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 1], ["book_id", 5], ["book_id", 6], ["book_id", 2], ["book_id", 4], ["book_id", 7], ["book_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?, ?, ?, ?)[0m  [["id", 1], ["id", 3], ["id", 2], ["id", 4], ["id", 5]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+Completed 200 OK in 16ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 8625)
+
+
+Started GET "/libraries" for 127.0.0.1 at 2023-07-20 19:48:43 +0530
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LibrariesController#index as HTML
+  [1m[36mLibrary Load (0.1ms)[0m  [1m[34mSELECT "libraries".* FROM "libraries"[0m
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mBook Load (0.4ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."library_id" IN (?, ?, ?)[0m  [["library_id", 1], ["library_id", 2], ["library_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mBookUser Load (0.1ms)[0m  [1m[34mSELECT "book_users".* FROM "book_users" WHERE "book_users"."book_id" IN (?, ?, ?, ?, ?, ?, ?)[0m  [["book_id", 1], ["book_id", 5], ["book_id", 6], ["book_id", 2], ["book_id", 4], ["book_id", 7], ["book_id", 3]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?, ?, ?, ?)[0m  [["id", 1], ["id", 3], ["id", 2], ["id", 4], ["id", 5]]
+  ↳ app/controllers/libraries_controller.rb:8:in `index'
+Completed 200 OK in 54ms (Views: 0.1ms | ActiveRecord: 1.5ms | Allocations: 40953)
+
+
+  [1m[36mBookUser Load (0.3ms)[0m  [1m[34mSELECT "book_users".* FROM "book_users" WHERE "book_users"."book_id" = ?[0m  [["book_id", 1]]
+  [1m[36mBookUser Load (0.1ms)[0m  [1m[34mSELECT "book_users".* FROM "book_users" WHERE "book_users"."book_id" = ?[0m  [["book_id", 1]]
